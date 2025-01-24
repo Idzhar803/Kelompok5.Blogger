@@ -1,105 +1,145 @@
-Ada beberapa alasan mengapa idzhar803.github.io mengalami error saat diakses. Berikut adalah penyebab yang mungkin terjadi dan cara memperbaikinya:
+Ya, kamu bisa membuat blog sederhana dengan 5 halaman (page) profil menggunakan hanya 1 file index.html dengan bantuan HTML, CSS, dan JavaScript. Kamu dapat memanfaatkan fitur seperti JavaScript event listeners atau CSS pseudo-classes untuk mengatur navigasi antar halaman tanpa memuat ulang file.
 
+Berikut adalah contoh codingannya:
 
----
-
-1. Repository Tidak Dikonfigurasi Sebagai GitHub Pages
-
-Pastikan repository Anda sudah diatur untuk GitHub Pages. Langkah-langkahnya:
-
-1. Periksa Pengaturan GitHub Pages:
-
-Buka repository Anda di GitHub.
-
-Masuk ke tab Settings.
-
-Scroll ke bagian Pages.
-
-Pastikan Source diatur ke branch main (atau master) dan root folder (/).
-
-
-
-2. Simpan Pengaturan: Klik Save setelah memilih branch dan direktori.
-
-
-3. Tunggu Propagasi: Setelah konfigurasi, tunggu beberapa menit agar GitHub Pages mengaktifkan situs Anda.
-
-
-
-
----
-
-2. File Utama Tidak Bernama index.html
-
-GitHub Pages mencari file utama yang bernama index.html. Jika file utama Anda tidak bernama index.html, situs akan mengalami error.
-
-Pastikan Anda memiliki file index.html di direktori root repository Anda.
-
-Jika file berada di subfolder, pindahkan ke root atau ubah pengaturan repository.
-
-
-
----
-
-3. Syntax Error di File HTML
-
-File HTML yang bermasalah dapat menyebabkan error. Periksa kembali kode HTML Anda:
-
-1. Pastikan file index.html menggunakan struktur dasar HTML seperti ini:
+Kode index.html
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Saya</title>
+    <title>Blog Profil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            width: 100%;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav {
+            margin: 1em 0;
+        }
+        nav a {
+            text-decoration: none;
+            margin: 0 10px;
+            color: #4CAF50;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        nav a.active {
+            color: #333;
+        }
+        .content {
+            width: 80%;
+            max-width: 800px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <h1>Selamat Datang di Blog Saya</h1>
-    <p>Ini adalah halaman utama.</p>
+    <header>
+        <h1>Blog Profil</h1>
+    </header>
+    <nav>
+        <a class="nav-link" data-page="home">Home</a>
+        <a class="nav-link" data-page="profile1">Profile 1</a>
+        <a class="nav-link" data-page="profile2">Profile 2</a>
+        <a class="nav-link" data-page="profile3">Profile 3</a>
+        <a class="nav-link" data-page="profile4">Profile 4</a>
+    </nav>
+    <div class="content">
+        <div id="home" class="page active">
+            <h2>Selamat Datang</h2>
+            <p>Ini adalah halaman utama blog.</p>
+        </div>
+        <div id="profile1" class="page">
+            <h2>Profile 1</h2>
+            <p>Ini adalah halaman Profile 1.</p>
+        </div>
+        <div id="profile2" class="page">
+            <h2>Profile 2</h2>
+            <p>Ini adalah halaman Profile 2.</p>
+        </div>
+        <div id="profile3" class="page">
+            <h2>Profile 3</h2>
+            <p>Ini adalah halaman Profile 3.</p>
+        </div>
+        <div id="profile4" class="page">
+            <h2>Profile 4</h2>
+            <p>Ini adalah halaman Profile 4.</p>
+        </div>
+    </div>
+
+    <script>
+        const links = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                // Hapus class active dari semua link
+                links.forEach(l => l.classList.remove('active'));
+                // Tambahkan class active pada link yang diklik
+                link.classList.add('active');
+
+                // Tampilkan halaman yang sesuai
+                const pageId = link.getAttribute('data-page');
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === pageId) {
+                        page.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 
 
-2. Gunakan validator HTML seperti W3C Validator untuk memastikan tidak ada kesalahan.
-
-
-
-
 ---
 
-4. Cache DNS atau Browser
+Penjelasan:
 
-Kadang-kadang error terjadi karena cache di browser atau DNS.
+1. Navigasi dengan JavaScript:
 
-Coba Akses di Mode Incognito: Gunakan mode incognito atau bersihkan cache browser Anda.
+Navigasi dilakukan dengan mendeteksi klik pada elemen <a> menggunakan event listener.
 
-Flush DNS: Pada sistem operasi Anda, jalankan perintah untuk membersihkan cache DNS:
-
-Windows: ipconfig /flushdns
-
-Linux/Mac: sudo systemd-resolve --flush-caches
+Halaman ditampilkan/dihilangkan dengan menambahkan/menghapus kelas CSS active.
 
 
 
+2. Hanya 1 File HTML:
 
----
+Semua konten halaman dimasukkan dalam div dengan ID unik (home, profile1, dst.).
 
-5. Domain Salah atau Belum Aktif
-
-Jika Anda menggunakan domain custom, pastikan konfigurasi DNS sudah benar:
-
-1. Tambahkan CNAME file di repository root Anda:
-
-Isi file dengan nama domain Anda, misalnya:
-
-idzhar803.github.io
+Konten diatur agar hanya satu halaman yang aktif (ditampilkan) pada satu waktu.
 
 
 
-2. Periksa konfigurasi DNS pada registrar domain Anda:
+3. CSS untuk Styling:
 
-Buat record tipe CNAME yang mengarah ke idzhar803.github.io.
+Kelas .active mengatur halaman mana yang terlihat.
+
+Semua elemen dengan kelas .page disembunyikan (display: none) kecuali yang memiliki kelas active.
 
 
 
@@ -107,20 +147,5 @@ Buat record tipe CNAME yang mengarah ke idzhar803.github.io.
 
 ---
 
-6. Masalah Internal GitHub
-
-Kadang-kadang, GitHub Pages mengalami downtime atau delay dalam propagasi. Cek status layanan GitHub Pages di GitHub Status.
-
-
----
-
-Jika masalah masih terjadi, beri tahu saya detail tambahan, seperti:
-
-Apakah repository sudah memiliki file index.html?
-
-Apakah pengaturan GitHub Pages sudah diaktifkan?
-
-Pesan error yang muncul.
-
-
+Apakah ini sesuai dengan yang kamu butuhkan?
 
